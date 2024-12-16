@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Company Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Your Company Details</h2>
+
+    <div class="card">
+        <div class="card-header">
+            Company Information
+        </div>
+        <div class="card-body">
+            <p><strong>Name:</strong> {{ company.name }}</p>
+            <p><strong>Established:</strong> {{ company.est_date }}</p>
+            <p><strong>City:</strong> {{ company.city }}</p>
+            <p><strong>State:</strong> {{ company.state }}</p>
+            <p><strong>Description:</strong> {{ company.description }}</p>
+            <p><strong>Website:</strong> <a href="{{ company.website }}" target="_blank">{{ company.website }}</a></p>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a href="{% url 'update-company' %}" class="btn btn-primary">Edit Company Details</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

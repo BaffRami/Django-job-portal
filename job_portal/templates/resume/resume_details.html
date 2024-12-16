@@ -1,0 +1,27 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Resume Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Your Resume Details</h2>
+
+    <div class="card p-4 shadow-sm">
+        <p><strong>First Name:</strong> {{ resume.first_name }}</p>
+        <p><strong>Last Name:</strong> {{ resume.last_name }}</p>
+        <p><strong>Location:</strong> {{ resume.location }}</p>
+
+        {% if resume.cv %}
+            <p>
+                <strong>Resume (CV):</strong> 
+                <a href="{{ resume.cv.url }}" class="btn btn-outline-primary" target="_blank">Download CV</a>
+            </p>
+        {% else %}
+            <p class="text-warning">You have not uploaded a resume file yet.</p>
+        {% endif %}
+
+        <a href="{% url 'update-resume' %}" class="btn btn-primary mt-3">Edit Resume</a>
+    </div>
+</div>
+{% endblock %}

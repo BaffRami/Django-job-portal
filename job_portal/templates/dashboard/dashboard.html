@@ -1,0 +1,53 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Welcome, {{ user.username }}!</h2>
+
+<!-- Warning for Recruiters without a Company Profile -->
+{% if user.is_recruiter and not user.has_company %}
+    <div class="alert alert-warning" role="alert">
+        <strong>Action Required!</strong> You need to update your company profile to unlock all features. 
+        <a href="{% url 'update-company' %}" class="alert-link">Update Company Profile</a>.
+    </div>
+{% endif %}
+
+<!-- Warning for Applicants without a Resume -->
+{% if user.is_applicant and not user.has_resume %}
+    <div class="alert alert-warning" role="alert">
+        <strong>Action Required!</strong> You need to update your resume to unlock all features. 
+        <a href="{% url 'update-resume' %}" class="alert-link">Update Resume</a>.
+    </div>
+{% endif %}
+
+{% if user.is_applicant %}
+    <div class="card mb-3">
+        <div class="card-header">
+            Your Resume
+        </div>
+        <div class="card-body">
+            <p><strong>First Name:</strong> {{ user.resume.first_name }}</p>
+            <p><strong>Surname:</strong> {{ user.resume.surname }}</p>
+            <p><strong>Location:</strong> {{ user.resume.location }}</p>
+            <a href="{% url 'update-resume' %}" class="btn btn-secondary">Edit Resume</a>
+        </div>
+    </div>
+{% elif user.is_recruiter %}
+    <div class="card mb-3">
+        <div class="card-header">
+            Your Company
+        </div>
+        <div class="card-body">
+            <p><strong>Name:</strong> {{ user.company.name }}</p>
+            <p><strong>Established:</strong> {{ user.company.est_date }}</p>
+            <p><strong>City:</strong> {{ user.company.city }}</p>
+            <p><strong>State:</strong> {{ user.company.state }}</p>
+            <a href="{% url 'update-company' %}" class="btn btn-secondary">Edit Company Details</a>
+        </div>
+    </div>
+{% endif %}
+
+
+{% endblock %}

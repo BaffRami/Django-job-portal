@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Update Resume{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Update Your Resume</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card p-4 shadow-sm">
+            {{ form.as_p }}
+
+            <!-- Display existing resume file -->
+            {% if form.instance.cv %}
+                <p class="mt-3">
+                    <strong>Current Resume:</strong>
+                    <a href="{{ form.instance.cv.url }}" target="_blank" class="btn btn-outline-primary">
+                        View Current Resume
+                    </a>
+                </p>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+            <a href="{% url 'resume-details' %}" class="btn btn-secondary mt-3">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
